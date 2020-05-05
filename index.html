@@ -10,12 +10,16 @@
 
         <div class="right">
             <h1>Sign-up</h1>
-            <form action="index.html">
-                <input type="text" id="name" name="name" placeholder="Name">
-                <input type="email" id="email" name="email" placeholder="Email">
-                <input type="password" id="password" name="password" placeholder="Password">
-                <button type="submit">Sign-up</button>
+            
+            <form id="signUpForm" action="index.html">
+                <input type="text" id="name" name="Name" placeholder="Name" autocomplete="off">
+                <input type="email" id="email" name="Email" placeholder="example@email.com">
+                <input type="password" id="password" name="Password" placeholder="Password">
+                <div class="notification"></div>
+                <button id="submitBtn" type="submit">Sign-up</button>
             </form>
         </div>
     </div> <!-- /.wrapper -->
+
+    <script src="js/main.js"></script>
 </html>
