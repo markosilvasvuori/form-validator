@@ -2,10 +2,12 @@ const name = document.querySelector('#name');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
 const submitBtn = document.querySelector('#submitBtn');
+const closeBtn = document.querySelector('.closeBtn');
 const fields = [name, email, password];
 const letters = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const uppercaseLetters = /[A-Z]/;
 let notification = document.querySelector('.notification');
+let notificationUl = document.querySelector('.notification ul');
 let nameOk = false;
 let emailOk = false;
 let passwordOk = false;
@@ -14,6 +16,8 @@ let passwordOk = false;
 function checkName() {
     if (name.value !== '') {
         nameOk = true;
+    } else {
+        nameOk = false;
     }
 }
 
@@ -24,12 +28,12 @@ function checkEmail() {
             emailOk = true;
         } else {
             notification.style.display = 'block';
-            notification.innerHTML = `
-            <ul>
-                <li>Email must be in form example@email.com</li>
-            <ul>
+            notificationUl.innerHTML = `
+            <li>Email must be in form example@email.com</li>
             `;
         }
+    } else {
+        emailOk = false;
     }
 }
 
@@ -38,21 +42,19 @@ function checkPassword() {
     if (password.value !== '') {
         if (password.value.length < 6) {
             notification.style.display = 'block';
-            notification.innerHTML = `
-            <ul>
-                <li>Password must contain at least 6 characters</li>
-            <ul>
+            notificationUl.innerHTML = `
+            <li>Password must contain at least 6 characters</li>
             `;
         } else if (uppercaseLetters.test(password.value)) {
             passwordOk = true;
         } else {
             notification.style.display = 'block';
-            notification.innerHTML = `
-            <ul>
-                <li>Password must contain at least one uppercase letter</li>
-            <ul>
+            notificationUl.innerHTML = `
+            <li>Password must contain at least one uppercase letter</li>
             `;
         }
+    } else {
+        passwordOk = false;
     }
 }
 
@@ -60,11 +62,9 @@ function checkPassword() {
 password.addEventListener('click', () => {
     notification.style.display = 'block';
     notification.style.backgroundColor = '#1dd1a1';
-    notification.innerHTML = `
-    <ul>
-        <li>At least one upper case letter</li>
-        <li>Minimum 6 characters</li>
-    <ul>
+    notificationUl.innerHTML = `
+    <li>At least one upper case letter</li>
+    <li>Minimum 6 characters</li>
     `;
 });
 
@@ -80,7 +80,7 @@ submitBtn.addEventListener('click', (e) => {
 
 // Check if all fields are filled
 function checkEmptyFields() {
-    notification.innerHTML = '';
+    notificationUl.innerHTML = '';
     let messages = '';
     for (let i = 0; i < 3; i++) {
         if (fields[i].value === '') {
@@ -89,7 +89,7 @@ function checkEmptyFields() {
             `;
         }
     }
-    notification.innerHTML += `<ul>${messages}</ul>`;
+    notificationUl.innerHTML += messages;
     notification.style.backgroundColor = '#c0392b';
     notification.style.display = 'block';
     return
@@ -102,3 +102,9 @@ function fieldCheck() {
         document.querySelector('#signUpForm').submit();
     }
 }
+
+// Notification close button
+closeBtn.addEventListener('click', () => {
+    notification.style.display = 'none';
+    notificationUl.innerHTML = '';
+})
