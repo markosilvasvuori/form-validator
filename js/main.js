@@ -29,7 +29,7 @@ function checkEmail() {
         } else {
             notification.style.display = 'block';
             notificationUl.innerHTML = `
-            <li>Email must be in form example@email.com</li>
+            <li>Please enter a valid email address</li>
             `;
         }
     } else {
